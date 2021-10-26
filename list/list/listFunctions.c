@@ -10,45 +10,42 @@ typedef struct ListElement
 
 typedef struct DoubleList
 {
-    ListElement* head;
+    struct ListElement* head;
 } DoubleList;
 
 typedef struct Position
 {
-    ListElement* position;
+    struct ListElement* position;
 } Position;
 
-void createList(DoubleList* list)
+int value(DoubleList* list, const int index, bool* success)
 {
-    return calloc(1, sizeof(DoubleList));
+    if (list == NULL)
+    {
+        *success = false;
+        return 0;
+    }
+
+    ListElement* element = list->head;
+    int count = 0;
+
+    while (count < index)
+    {
+        if (element->next != NULL)
+        {
+            *success = false;
+            return 0;
+        }
+        element = element->next;
+        ++count;
+    }
+    if (count == index)
+    {
+        *success = true;
+        return element->value;
+    }
+    *success = false;
+    return 0;
 }
 
-void addAfter(DoubleList* list, Position* position, int value)
-{
-    ListElement* newElement = malloc(sizeof(ListElement));
-    newElement->value = value;
-    if (position->position == NULL)
-    {
-        list->head = newElement;
-        return;
-    }
-    newElement->previous = position->position;
-    position->position->next = newElement;
-}
 
-void addBefore(DoubleList* list, Position* position, int value)
-{
-    ListElement* newElement = malloc(sizeof(ListElement));
-    newElement->value = value;
-    if (position->position == NULL)
-    {
-        list->head = newElement;
-        return;
-    }
-    if (position->position->previous != NULL)
-    {
-        newElement->previous = position->position->previous;
-        position->position->previous = newElement;
-    }
-    newElement->next = position->position;
-}
