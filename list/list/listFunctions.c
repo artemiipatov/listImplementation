@@ -11,17 +11,27 @@ typedef struct ListElement
 
 typedef struct DoubleList
 {
-    ListElement* head;
+    struct ListElement* head;
 } DoubleList;
 
 typedef struct Position
 {
-    ListElement* position;
+    struct ListElement* position;
 } Position;
 
 DoubleList* createList(DoubleList* list)
 {
     return calloc(1, sizeof(DoubleList));
+}
+  
+int value(DoubleList* list, Position* position)
+{
+    return position->position->value;
+}
+
+void setValue(DoubleList* list, Position* position, const int newValue)
+{
+    position->position->value = newValue;
 }
 
 void addAfter(DoubleList* list, Position* position, int value)
