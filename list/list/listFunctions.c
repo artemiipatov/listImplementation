@@ -18,34 +18,15 @@ typedef struct Position
     struct ListElement* position;
 } Position;
 
-int value(DoubleList* list, const int index, bool* success)
+int value(DoubleList* list, Position* position)
 {
-    if (list == NULL)
-    {
-        *success = false;
-        return 0;
-    }
-
-    ListElement* element = list->head;
-    int count = 0;
-
-    while (count < index)
-    {
-        if (element->next != NULL)
-        {
-            *success = false;
-            return 0;
-        }
-        element = element->next;
-        ++count;
-    }
-    if (count == index)
-    {
-        *success = true;
-        return element->value;
-    }
-    *success = false;
-    return 0;
+    return position->position->value;
 }
+
+void setValue(DoubleList* list, Position* position, const int newValue)
+{
+    position->position->value = newValue;
+}
+
 
 
